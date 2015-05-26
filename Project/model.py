@@ -1,5 +1,6 @@
 import processes as proc
 import molecules as mol
+import logger as loggy 
 
 class Model(object):
     """
@@ -19,6 +20,7 @@ class Model(object):
         translation = proc.Translation(1, "Translation")
         translation.set_states(self.mrnas.keys(), self.ribosomes.keys())
         self.processes = {"Translation":translation}
+        self.logger = loggy()
 
     def step(self):
         """
@@ -35,9 +37,12 @@ class Model(object):
         """
         for s in xrange(steps):
             self.step()
-            if log: # This could be an entry point for further logging
+            if log: 
+                
+                #self.logger.steps_append()
+                # This could be an entry point for further logging
                 # print count of each protein to the screen
-                print '\r{}'.format([len(self.states[x]) for x in self.states.keys() if "Protein_" in x]),
+                #print '\r{}'.format([len(self.states[x]) for x in self.states.keys() if "Protein_" in x]),
             
 if __name__ == "__main__":
     c = Model()
